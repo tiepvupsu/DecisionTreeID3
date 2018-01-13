@@ -26,14 +26,8 @@ Implement ID3 algorithm for data with all categorical attributes by using panda 
 | 13 | overcast | hot         | normal   | weak   | yes  |
 | 14 | rainy    | mild        | high     | strong | no   |
 
-
-```python
-df = pd.DataFrame.from_csv('weather.csv')
-X = df.iloc[:, :-1]
-y = df.iloc[:, -1]
-tree = DecisionTreeID3(max_depth = 3, min_samples_split = 2)
-tree.fit(X, y)
-print(tree.predict(X)) # predict on training data 
+```
+python id3.py
 ```
 
 Result should be: 
