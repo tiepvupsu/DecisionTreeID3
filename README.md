@@ -25,7 +25,6 @@ Implement ID3 algorithm for data with all categorical attributes by using panda 
 | 12 | overcast | mild        | high     | strong | yes  |
 | 13 | overcast | hot         | normal   | weak   | yes  |
 | 14 | rainy    | mild        | high     | strong | no   |
-|----|----------|-------------|----------|--------|------|
 
 
 ```python
