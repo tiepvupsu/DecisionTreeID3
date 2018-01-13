@@ -51,9 +51,10 @@ class DecisionTreeID3(object):
             if node.depth < self.max_depth or node.entropy < self.min_gain:
                 node.children = self._split(node)
                 if not node.children: #leaf node
-                    target_ids = [i + 1 for i in node.ids] # target is a series variable
-                    node.set_label(self.target[target_ids].mode()[0]) # most frequent label
-                queue += node.children 
+                    self._set_label(node)
+                queue += node.children
+            else:
+                self._set_label(node)
                 
         
                 
@@ -64,6 +65,11 @@ class DecisionTreeID3(object):
         prob = np.array(self.target[ids].value_counts())
         # print(prob, entropy(prob))
         return entropy(prob)
+
+    def _set_label(self, node):
+        target_ids = [i + 1 for i in node.ids]  # target is a series variable
+        node.set_label(self.target[target_ids].mode()[0])  # most frequent label
+
 
     
     def _split(self, node):
@@ -113,10 +119,10 @@ class DecisionTreeID3(object):
             labels[n] = node.label
         return labels
 
-
-df = pd.DataFrame.from_csv('weather.csv')
-X = df.iloc[:, :-1]
-y = df.iloc[:, -1]
-tree = DecisionTreeID3(max_depth = 5, min_samples_split = 2)
-tree.fit(X, y)
-print(tree.predict(X))
+if __name__ == "__main__":
+    df = pd.DataFrame.from_csv('weather.csv')
+    X = df.iloc[:, :-1]
+    y = df.iloc[:, -1]
+    tree = DecisionTreeID3(max_depth = 3, min_samples_split = 2)
+    tree.fit(X, y)
+    print(tree.predict(X))
