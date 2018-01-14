@@ -58,8 +58,7 @@ class DecisionTreeID3(object):
     def _entropy(self, ids):
         # calculate entropy of a node with index ids
         if len(ids) == 0: return 0
-        ids = [i+1 for i in ids]
-        # remove 0 freq since log is not defined at 0 
+        ids = [i+1 for i in ids] # panda series index starts from 1
         freq = np.array(self.target[ids].value_counts())
         return entropy(freq)
 
@@ -83,7 +82,7 @@ class DecisionTreeID3(object):
             for val in values: 
                 sub_ids = sub_data.index[sub_data[att] == val].tolist()
                 splits.append([sub_id-1 for sub_id in sub_ids])
-            # don't split if a node has too small points
+            # don't split if a node has too small number of points
             if min(map(len, splits)) < self.min_samples_split: continue
             # information gain
             HxS= 0
