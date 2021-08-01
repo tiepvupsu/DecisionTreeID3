@@ -118,7 +118,7 @@ class DecisionTreeID3(object):
         return labels
 
 if __name__ == "__main__":
-    df = pd.DataFrame.from_csv('weather.csv')
+    df = pd.read_csv('weather.csv', index_col = 0, parse_dates = True)
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
     tree = DecisionTreeID3(max_depth = 3, min_samples_split = 2)
